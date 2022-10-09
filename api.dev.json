@@ -1,0 +1,8 @@
+{
+  "customer_api_gateway" : {
+    "port" : 3000
+  },
+  "helloworld_service" : {
+    "port" : 3001
+  }
+}

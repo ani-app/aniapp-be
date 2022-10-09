@@ -1,7 +1,7 @@
 FROM node:18-alpine as base
 WORKDIR /src
 COPY package*.json /
-EXPOSE 3001
+EXPOSE 3000
 
 FROM base as production
 ENV NODE_ENV=production
@@ -14,4 +14,4 @@ ENV NODE_ENV=development
 RUN npm install
 RUN npm install -g nodemon
 COPY . /
-CMD ["nodemon", "bin/www"]
+CMD ["node", "bin/www"]

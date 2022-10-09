@@ -1,8 +1,14 @@
 version: '3.8'
+
+x-common-variables:
+  &common
+  HELLOWORLD_SERVICE_PORT: "3001"
+  HELLOWORLD_SERVICE_ADDR: "helloworld"
+
 services:
-  helloworld:
+  customer-api-gateway:
     build: 
-      context: ./helloworld-service
+      context: ./customer-api-gateway
       target: dev
     volumes:
       - .:/src
@@ -10,5 +16,32 @@ services:
     ports:
       - "3000:3000"
     environment:
+      <<: *common
+      NODE_ENV: development
+      PORT: "3000"
+      DEBUG: nodejs-docker-express:*
+    networks:
+      - aniapp
+
+  helloworld:
+    container_name: helloworld
+    build: 
+      context: ./helloworld-service
+      target: dev
+    volumes:
+      - .:/src
+    command: npm run start:dev
+    ports:
+      - "3001:3001"
+    environment:
+      - HELLOWORLD_SERVICE_PORT=3001
       - NODE_ENV=development
       - DEBUG=nodejs-docker-express:*
+    networks:
+      - aniapp
+
+  
+
+networks:
+  aniapp:
+    driver: bridge

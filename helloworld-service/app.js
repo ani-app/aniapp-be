@@ -11,6 +11,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api/v1/hello-world', helloWorld);
+app.use('/hello-world', helloWorld);
 
 module.exports = app;
