@@ -1,15 +1,14 @@
 const express = require('express');
 const httpProxy = require('express-http-proxy');
+const config = require('./config');
 const app = express();
-
-const helloworldServiceAddr = process.env.HELLOWORLD_SERVICE_ADDR;
-const helloworldServicePort = process.env.HELLOWORLD_SERVICE_PORT;
 
 function GetURI(addr, port) {
   return `http://${addr}:${port}`
+    
 }
 
-const helloworldServiceProxy = httpProxy(GetURI(helloworldServiceAddr, helloworldServicePort)); 
+const helloworldServiceProxy = httpProxy(GetURI(config.helloWorldService.addr, config.helloWorldService.port));
 
 app.get('/hello-world', (req, res, next) => {
   helloworldServiceProxy(req, res, next);
