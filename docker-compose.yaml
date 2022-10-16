@@ -7,7 +7,7 @@ x-common-variables:
 
 services:
   customer-api-gateway:
-    build: 
+    build:
       context: ./customer-api-gateway
       target: dev
     volumes:
@@ -23,10 +23,10 @@ services:
     networks:
       - aniapp
 
-  helloworld:
-    container_name: helloworld
-    build: 
-      context: ./helloworld-service
+  customer-service:
+    container_name: customer-service
+    build:
+      context: ./customer-service
       target: dev
     volumes:
       - .:/src
@@ -34,7 +34,41 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - HELLOWORLD_SERVICE_PORT=3001
+      - PORT=3001
+      - NODE_ENV=development
+      - DEBUG=nodejs-docker-express:*
+    networks:
+      - aniapp
+
+  pet-service:
+    container_name: pet-service
+    build:
+      context: ./pet-service
+      target: dev
+    volumes:
+      - .:/src
+    command: npm run start:dev
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - NODE_ENV=development
+      - DEBUG=nodejs-docker-express:*
+    networks:
+      - aniapp
+
+  veterinary-service:
+    container_name: veterinary-service
+    build:
+      context: ./veterinary-service
+      target: dev
+    volumes:
+      - .:/src
+    command: npm run start:dev
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
       - NODE_ENV=development
       - DEBUG=nodejs-docker-express:*
     networks:
@@ -51,6 +85,7 @@ services:
       POSTGRES_PASSWORD: admin
     volumes:
       - local_pgdata:/var/lib/postgresql/data
+
     
   pgadmin:
     image: dpage/pgadmin4
