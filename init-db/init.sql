@@ -16,6 +16,28 @@ CREATE TABLE IF NOT EXISTS Customers (
   FOREIGN KEY (customer_type_id) REFERENCES CustomerTypes(id)
 );
 
+CREATE TABLE IF NOT EXISTS Country (
+  id int NOT NULL,
+  name char(30) NOT NULL,
+  PRIMARY KEY id;
+);
+
+CREATE TABLE IF NOT EXISTS City (
+  id int NOT NULL,
+  name char(30) NOT NULL,
+  country_id int NOT NULL,
+  PRIMARY KEY id,
+  FOREIGN KEY (country_id) REFERENCES  Country(id)
+);
+
+CREATE TABLE IF NOT EXISTS Province (
+  id int NOT NULL,
+  name char(30) NOT NULL,
+  city_id int NOT NULL,
+  PRIMARY KEY id,
+  FOREIGN KEY (city_id) REFERENCES  City(id)
+);
+
 CREATE TABLE IF NOT EXISTS CustomerProfile (
   id int NOT NULL,
   customer_id int NOT NULL,
@@ -27,4 +49,3 @@ CREATE TABLE IF NOT EXISTS CustomerProfile (
   PRIMARY KEY (id),
   FOREIGN KEY (customer_id) REFERENCES Customers(id)
 );
-
