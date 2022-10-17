@@ -74,17 +74,18 @@ services:
     networks:
       - aniapp
 
-  db:
+  postgres:
     image: postgres
-    container_name: local_db
+    container_name: postgres
     restart: always
     ports:
       - "5432:5432"
     environment:
+      POSTGRES_DB: aniapp
       POSTGRES_USER: user
       POSTGRES_PASSWORD: admin
     volumes:
-      - local_pgdata:/var/lib/postgresql/data
+      - ./init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
 
     
   pgadmin:
@@ -100,7 +101,6 @@ services:
       - pgadmin-data:/var/lib/pgadmin
 
 volumes:
-  local_pgdata:
   pgadmin-data:
 
 networks:
