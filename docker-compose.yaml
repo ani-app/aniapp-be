@@ -4,6 +4,11 @@ x-common-variables:
   &common
   HELLOWORLD_SERVICE_PORT: "3001"
   HELLOWORLD_SERVICE_ADDR: "helloworld"
+  POSTGRES_DB: aniapp
+  POSTGRES_USER: user
+  POSTGRES_PASSWORD: admin
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
 
 services:
   customer-api-gateway:
@@ -51,11 +56,14 @@ services:
     ports:
       - "3002:3002"
     environment:
-      - PORT=3002
-      - NODE_ENV=development
-      - DEBUG=nodejs-docker-express:*
+      <<: *common
+      PORT: 3002
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
     networks:
       - aniapp
+    depends_on:
+      - postgres
 
   veterinary-service:
     container_name: veterinary-service
@@ -81,13 +89,12 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: aniapp
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: admin
+      <<: *common
     volumes:
       - ./init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aniapp
 
-    
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4

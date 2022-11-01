@@ -136,6 +136,7 @@ CREATE TABLE IF NOT EXISTS BreedTypes (
     PRIMARY KEY (id)
 );
 ALTER SEQUENCE breed_types_id_seq OWNED BY BreedTypes.id;
+INSERT INTO BreedTypes (name) VALUES ('kedi');
 
 CREATE SEQUENCE breeds_id_seq;
 CREATE TABLE IF NOT EXISTS Breeds (
@@ -148,12 +149,14 @@ CREATE TABLE IF NOT EXISTS Breeds (
             REFERENCES BreedTypes(id)
 );
 ALTER SEQUENCE breeds_id_seq OWNED BY Breeds.id;
+INSERT INTO Breeds (name, breed_type_id) VALUES ('tekir', 1);
 
 CREATE TABLE IF NOT EXISTS Colours(
     name varchar(50) NOT NULL,
     code varchar(6) NOT NULL UNIQUE,
     PRIMARY KEY (name)
 );
+INSERT INTO Colours (name, code) VALUES ('gri', '9C9C9C');
 
 CREATE TABLE IF NOT EXISTS Genders(
     name varchar(50) NOT NULL UNIQUE,
@@ -188,6 +191,8 @@ CREATE TABLE IF NOT EXISTS Pets (
             REFERENCES Genders(name)
 );
 ALTER SEQUENCE pets_id_seq OWNED BY Pets.id;
+INSERT INTO Pets (customer_id, name, created_at, breed_id, colour_code, gender) 
+    VALUES (1, 'Duman', CURRENT_TIMESTAMP, 1, '9C9C9C', 'erkek');
 
 CREATE SEQUENCE treatment_types_id_seq;
 CREATE TABLE IF NOT EXISTS TreatmentTypes (
