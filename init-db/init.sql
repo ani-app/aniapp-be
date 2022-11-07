@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS CustomerTypes (
 );
 ALTER SEQUENCE customer_types_id_seq OWNED BY CustomerTypes.id;
 INSERT INTO CustomerTypes (name)
-    VALUES ('admin'), ('customer');
+    VALUES ('admin'), ('customer'), ('veterinary');
 
 CREATE SEQUENCE auth_id_seq;
 CREATE TABLE IF NOT EXISTS Auth (
