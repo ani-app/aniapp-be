@@ -6,10 +6,19 @@ const service = require('../service/pets');
 /* GET users listing. */
 router.get('/', async function(req, res) {
     try {
-        pets = await service.GetAllPets(10);
+        pets = await service.GetAllPets(req.query.limit, req.query.customer_id);
         res.status(200).json(pets);
     }catch (err) {
-        res.status(400).json({'error' : err})
+        res.status(400).json({'error' : err});
+    }
+});
+
+router.get('/:id', async function(req, res) {
+    try {
+        pet = await service.GetPet(req.params.id);
+        res.status(200).json(pet);
+    }catch (err) {
+        res.status(400).json({'error' : err});
     }
 });
 
