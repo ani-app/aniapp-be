@@ -106,6 +106,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - aniapp
 
 volumes:
   pgadmin-data:
