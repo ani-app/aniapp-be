@@ -22,4 +22,13 @@ router.get('/:id', async function(req, res) {
     }
 });
 
+router.post('/', async function(req, res){
+    try {
+        let pet = await service.CreatePet(req.body);
+        res.status(201).json(pet);
+    } catch(err) {
+        res.status(400).json({'error' : err.message});
+    }    
+});
+
 module.exports = router;

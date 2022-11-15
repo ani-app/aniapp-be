@@ -1,4 +1,5 @@
 const repository = require('../repository/pets');
+const petModel = require('../models/pet');
 
 module.exports.GetAllPets = async (limit, customer_id) => {
   if (limit > 20) {
@@ -13,15 +14,28 @@ module.exports.GetAllPets = async (limit, customer_id) => {
     }
     return pets;
   }catch(err) {
-    return err;
+    throw err;
   }
 };
 
 module.exports.GetPet = async (id) => {
   try {
-    pet = await repository.GetPet(id);
+    let pet = await repository.GetPet(id);
     return pet;
   }catch(err) {
-    return err;
+    throw err;
+  }
+};
+
+module.exports.CreatePet = async (pet) => {
+  try {
+    let validate = petModel.validation(pet)
+    if (validate.error) {
+      throw new Error(validate.message);
+    }
+    let petRes = await repository.CreatePet(pet);
+    return petRes
+  } catch (err) {
+    throw err;
   }
 };

@@ -34,3 +34,18 @@ module.exports.GetPet = async (id) => {
     return err;
   }
 };
+
+module.exports.CreatePet = async (pet) => {
+  try {
+    let response = await pool.query(schemas.createPetSchema, [
+      pet.customer_id, pet.name, 
+      pet.breed.id, 
+      pet.colour_code, 
+      pet.gender
+    ]);
+    petRes = petModel.rowToDTO(response.rows[0]);
+    return petRes;
+  } catch (err) {
+    return err;
+  }
+};

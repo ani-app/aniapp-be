@@ -19,3 +19,10 @@ module.exports.rowToDTO = (r) => {
         }
       }
 };
+
+module.exports.validation = (pet) => {
+  if (pet.name.length <= 2) {
+    return {error : true, message : "pet name must be more than 2 characters"};
+  }
+  return {error : false, message : ""};
+}
