@@ -1,3 +1,5 @@
+const validation = require('./validation')
+
 module.exports.rowToDTO = (r) => {
     return {
         id : r.id,
@@ -21,8 +23,11 @@ module.exports.rowToDTO = (r) => {
 };
 
 module.exports.validation = (pet) => {
-  if (pet.name.length <= 2) {
-    return {error : true, message : "pet name must be more than 2 characters"};
-  }
-  return {error : false, message : ""};
+  
+  if (!pet.customer_id) return validation.errorResponse("must be a customer_id field");  
+  if (!pet.name) return validation.errorResponse("must be a name field");  
+  if (pet.name.length <= 2) return validation.errorResponse("pet name must be more than 2 characters");
+  if (!pet.gender) return validation.errorResponse("must be a gender field");  
+
+  return validation.successResponse;
 }

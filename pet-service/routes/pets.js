@@ -27,7 +27,7 @@ router.post('/', async function(req, res){
         let pet = await service.CreatePet(req.body);
         res.status(201).json(pet);
     } catch(err) {
-        res.status(400).json({'error' : err.message});
+        res.status(400).json({error : err.message});
     }    
 });
 
