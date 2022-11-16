@@ -18,7 +18,8 @@ module.exports.GetCustomersPets = async (limit, customer_id) => {
 
 module.exports.GetPet = async (id) => {
   let response = await pool.query(schemas.getPetSchema, [id]);
-  return petModel.rowToDTO(response.rows[0]);;
+  if (response.rows.length == 0) throw "pet not found";
+  return petModel.rowToDTO(response.rows[0]);
 };
 
 module.exports.CreatePet = async (pet) => {
@@ -33,4 +34,9 @@ module.exports.CreatePet = async (pet) => {
 
 module.exports.DeletePet = async (id) => {
   await pool.query(schemas.deletePetSchema, [id]);
+}
+
+module.exports.UpdatePet = async (pet) => {
+  let res = await pool.query(schemas.updatePetSchema, [pet.id, pet.customer_id, pet.name, pet.birth_date, pet.photo, pet.colour_code, pet.id_number]);
+  return petModel.rowToDTO(res.rows[0]);
 }

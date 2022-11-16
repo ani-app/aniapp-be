@@ -14,7 +14,7 @@ module.exports.getPetSchema = `SELECT
     INNER JOIN Breeds b ON b.id = p.breed_id
     INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id
     WHERE p.id = $1;
-`
+`;
 
 module.exports.getCustomersPetsSchema = `SELECT
     p.*, b.name breed_name, b.breed_type_id breed_type_id, bt.name breed_type_name
@@ -24,7 +24,7 @@ module.exports.getCustomersPetsSchema = `SELECT
     WHERE p.customer_id = $1
     ORDER BY id
     LIMIT $2;
-`
+`;
 
 module.exports.createPetSchema = `WITH Pets as (
     INSERT INTO Pets (customer_id, name, breed_id, colour_code, gender) 
@@ -34,6 +34,21 @@ module.exports.createPetSchema = `WITH Pets as (
     FROM Pets p
     INNER JOIN Breeds b ON b.id = p.breed_id
     INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id;
-`
+`;
 
-module.exports.deletePetSchema = `DELETE FROM Pets WHERE id = $1 RETURNING id`
+module.exports.deletePetSchema = `DELETE FROM Pets WHERE id = $1 RETURNING id;`;
+
+module.exports.updatePetSchemas = `UPDATE Pets 
+    SET customer_id=$2, name=$3, birth_date=$4, photo=$5, colour_code=$6, id_number=$7 WHERE id = $1 RETURNING *;
+`;
+
+module.exports.updatePetSchema = `WITH Pets as (
+    UPDATE Pets 
+    SET customer_id=$2, name=$3, birth_date=$4, photo=$5, colour_code=$6, id_number=$7
+    WHERE id = $1 
+    RETURNING *
+    ) SELECT p.*, b.name breed_name, b.breed_type_id breed_type_id, bt.name breed_type_name 
+    FROM Pets p
+    INNER JOIN Breeds b ON b.id = p.breed_id
+    INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id;
+`;

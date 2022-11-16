@@ -3,7 +3,7 @@ const validation = require('./validation')
 module.exports.rowToDTO = (r) => {
     return {
         id : r.id,
-        customer : r.customer_id,
+        customer_id : r.customer_id,
         name : r.name,
         created_at : r.created_at,
         birth_date : r.birth_date,
@@ -22,12 +22,11 @@ module.exports.rowToDTO = (r) => {
       }
 };
 
-module.exports.validation = (pet) => {
-  console.log("wyyy");    
-  if (!pet.customer_id) return validation.errorResponse("must be a customer_id field");  
-  if (!pet.name) return validation.errorResponse("must be a name field");  
+module.exports.validation = (pet, isNew) => {
+  if (!pet.customer_id && isNew) return validation.errorResponse("must be a customer_id field");  
+  if (!pet.name && isNew) return validation.errorResponse("must be a name field");  
   if (pet.name.length <= 2) return validation.errorResponse("pet name must be more than 2 characters");
-  if (!pet.gender) return validation.errorResponse("must be a gender field");  
+  if (!pet.gender && isNew) return validation.errorResponse("must be a gender field");  
 
   return validation.successResponse;
 }
