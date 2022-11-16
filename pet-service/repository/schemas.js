@@ -35,3 +35,5 @@ module.exports.createPetSchema = `WITH Pets as (
     INNER JOIN Breeds b ON b.id = p.breed_id
     INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id;
 `
+
+module.exports.deletePetSchema = `DELETE FROM Pets WHERE id = $1 RETURNING id`

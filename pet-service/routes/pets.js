@@ -27,8 +27,17 @@ router.post('/', async function(req, res){
         let pet = await service.CreatePet(req.body);
         res.status(201).json(pet);
     } catch(err) {
-        res.status(400).json({error : err.message});
+        res.status(400).json({error : err});
     }    
+});
+
+router.delete('/:id', async function(req, res){
+    try {
+        await service.DeletePet(req.params.id);
+        res.status(200).json({message : "pet deleted successfully."});
+    }catch(err) {
+        res.status(400).json(err);
+    }
 });
 
 module.exports = router;

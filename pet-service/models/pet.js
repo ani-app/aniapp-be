@@ -23,7 +23,7 @@ module.exports.rowToDTO = (r) => {
 };
 
 module.exports.validation = (pet) => {
-  
+  console.log("wyyy");    
   if (!pet.customer_id) return validation.errorResponse("must be a customer_id field");  
   if (!pet.name) return validation.errorResponse("must be a name field");  
   if (pet.name.length <= 2) return validation.errorResponse("pet name must be more than 2 characters");

@@ -4,48 +4,33 @@ const petModel = require('../models/pet');
 
 module.exports.GetAllPets = async (limit) => {
   var pets = [];
-  try {
-    let response = await pool.query(schemas.getAllPetsSchema, [limit]);
-    response.rows.forEach(r => pets.push(petModel.rowToDTO(r)));
-    return pets;
-  } catch (err) {
-    return err;
-  }
+  let response = await pool.query(schemas.getAllPetsSchema, [limit]);
+  response.rows.forEach(r => pets.push(petModel.rowToDTO(r)));
+  return pets;
 };
 
 module.exports.GetCustomersPets = async (limit, customer_id) => {
   var pets = [];
-  try {
-    let response = await pool.query(schemas.getCustomersPetsSchema, [customer_id, limit]);
-    response.rows.forEach(r => pets.push(petModel.rowToDTO(r)));
-    return pets;
-  } catch (err) {
-    return err;
-  }
+  let response = await pool.query(schemas.getCustomersPetsSchema, [customer_id, limit]);
+  response.rows.forEach(r => pets.push(petModel.rowToDTO(r)));
+  return pets;
 };
 
 module.exports.GetPet = async (id) => {
-  var pet;
-  try {
-    let response = await pool.query(schemas.getPetSchema, [id]);
-    pet = petModel.rowToDTO(response.rows[0]);
-    return pet;
-  } catch (err) {
-    return err;
-  }
+  let response = await pool.query(schemas.getPetSchema, [id]);
+  return petModel.rowToDTO(response.rows[0]);;
 };
 
 module.exports.CreatePet = async (pet) => {
-  try {
-    let response = await pool.query(schemas.createPetSchema, [
-      pet.customer_id, pet.name, 
-      pet.breed.id, 
-      pet.colour_code, 
-      pet.gender
-    ]);
-    petRes = petModel.rowToDTO(response.rows[0]);
-    return petRes;
-  } catch (err) {
-    return err;
-  }
+  let response = await pool.query(schemas.createPetSchema, [
+    pet.customer_id, pet.name, 
+    pet.breed.id, 
+    pet.colour_code, 
+    pet.gender
+  ]);
+  return petModel.rowToDTO(response.rows[0]);;
 };
+
+module.exports.DeletePet = async (id) => {
+  await pool.query(schemas.deletePetSchema, [id]);
+}
