@@ -52,3 +52,11 @@ module.exports.updatePetSchema = `WITH Pets as (
     INNER JOIN Breeds b ON b.id = p.breed_id
     INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id;
 `;
+
+module.exports.getAllBreedsSchema = `SELECT
+    b.*, bt.name breed_type_name
+    FROM Breeds b
+    INNER JOIN BreedTypes bt ON bt.id = b.breed_type_id
+    ORDER BY id
+;
+`;
