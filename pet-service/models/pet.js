@@ -1,26 +1,27 @@
+const {DataTypes, Model} = require('sequelize');
+const sequlize = require('../database/sequlize');
 const validation = require('./validation')
 
-module.exports.rowToDTO = (r) => {
-    return {
-        id : r.id,
-        customer_id : r.customer_id,
-        name : r.name,
-        created_at : r.created_at,
-        birth_date : r.birth_date,
-        photo : r.photo,
-        colour_code : r.colour_code,
-        id_number : r.id_number,
-        gender : r.gender,
-        breed : {
-          id : r.breed_id,
-          name : r.breed_name,
-          type : {
-            id : r.breed_type_id,
-            name : r.breed_type_name
-          }
-        }
-      }
-};
+class Pet extends Model {}
+
+Pet.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  birthDate: {
+    type: DataTypes.DATEONLY,
+    allowNull: false,
+  },
+  customerID: {
+    type: DataTypes.INTEGER
+  }
+})
 
 module.exports.validation = (pet, isNew) => {
   if (!pet.customer_id && isNew) return validation.errorResponse("must be a customer_id field");  

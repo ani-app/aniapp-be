@@ -55,16 +55,23 @@ services:
     command: npm run start:dev
     ports:
       - "3002:3002"
-    environment:
-      <<: *common
-      PORT: 3002
-      NODE_ENV: development
-      DEBUG: nodejs-docker-express:*
+    env_file:
+      - 'pet.env'
     networks:
       - aniapp
     depends_on:
-      - postgres
+      - pet-db
 
+  pet-db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - "5433:5433"
+    environment:
+      <<: *common
+    networks:
+      - aniapp
   veterinary-service:
     container_name: veterinary-service
     build:
@@ -95,19 +102,19 @@ services:
     networks:
       - aniapp
 
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4
-    restart: always
-    ports:
-      - "5050:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: tuncel.ahmet.berke@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-    networks:
-      - aniapp
+  #pgadmin:
+  #  image: dpage/pgadmin4
+  #  container_name: pgadmin4
+  #  restart: always
+  #  ports:
+  #    - "5050:80"
+  #  environment:
+  #    PGADMIN_DEFAULT_EMAIL: tuncel.ahmet.berke@gmail.com
+  #    PGADMIN_DEFAULT_PASSWORD: admin
+  #  volumes:
+  #    - pgadmin-data:/var/lib/pgadmin
+  #  networks:
+  #    - aniapp
 
 volumes:
   pgadmin-data:

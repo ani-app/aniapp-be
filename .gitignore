@@ -105,3 +105,6 @@ dist
 
 # Fleet
 .fleet
+
+# ENV
+*.env

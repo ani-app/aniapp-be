@@ -1,4 +1,4 @@
-const pool = require('../database/pool');
+const pool = require('../database/sequlize');
 const schemas = require('./schemas');
 const breedModel = require('../models/breed');
 
