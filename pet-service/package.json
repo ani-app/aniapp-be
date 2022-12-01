@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start:dev": "node ./bin/www"
+    "start": "node --experimental-specifier-resolution=node ./bin/www.js",
+    "start:dev": "node --experimental-specifier-resolution=node ./bin/www.js"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
@@ -12,5 +12,9 @@
     "express": "^4.18.2",
     "pg": "^8.8.0",
     "sequelize": "^6.26.0"
+  },
+  "type": "module",
+  "bin": {
+    "www": "./bin/www"
   }
 }

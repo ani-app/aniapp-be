@@ -1,5 +1,9 @@
-const repository = require('../repository/breeds');
+import breedRepo from '../repository/breeds';
 
-module.exports.GetAllBreeds = async () => {
-    return await repository.GetAllBreeds();
+const service = {
+    GetAllBreeds : async () => {
+        return await breedRepo.GetAllBreeds();
+    }
 }
+
+export default service;

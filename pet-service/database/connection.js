@@ -1,9 +1,9 @@
-const { Sequelize } = require('sequelize');
-const config = require('../config/config');
+import config from '../config/config';
+import Sequelize from 'sequelize';
 
 const connStr = 'postgres://' + 
     config.database.user + ':' + config.database.password + '@' +
-    config.database.host + ':' + config.database.port + '/' + config.database;
+    config.database.host + ':' + config.database.port + '/' + config.database.name;
 
 console.log(connStr);
 
@@ -21,5 +21,3 @@ const sequelize = new Sequelize(connStr, {
 });
 
 export default sequelize;
-
-module.exports = pool;

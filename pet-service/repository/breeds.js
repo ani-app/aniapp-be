@@ -1,10 +1,9 @@
-const pool = require('../database/sequlize');
-const schemas = require('./schemas');
-const breedModel = require('../models/breed');
+import Breed from '../models/breed';
 
-module.exports.GetAllBreeds = async () => {
-    var breeds = [];
-    let response = await pool.query(schemas.getAllBreedsSchema);
-    response.rows.forEach(r => breeds.push(breedModel.rowToDTO(r)));
-    return breeds;
+const repository = {
+    GetAllBreeds : async () => {
+        return await Breed.findAll();
+    }
 }
+
+export default repository;

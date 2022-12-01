@@ -1,8 +1,25 @@
-const {DataTypes, Model} = require('sequelize');
-const sequlize = require('../database/sequlize');
-const validation = require('./validation')
+import sequelize from '../database/connection';
+import val from './validation';
+import {DataTypes, Model} from 'sequelize';
+import Validation from './validation';
+import ValidatableModel from './validation';
 
-class Pet extends Model {}
+class Pet extends ValidatableModel {
+  
+  static CreateValidation(data) { 
+    if (!data.customerId) return this.errorResponse("must be a customer_id field");  
+    if (!data.name) return this.errorResponse("must be a name field");  
+    if (data.name.length <= 2) return this.errorResponse("pet name must be more than 2 characters");
+    if (!data.genderId) return this.errorResponse("must be a gender field");  
+    return this.successResponse;
+  }
+
+  static UpdateValidation(data) {
+    if (data.name.length <= 2) return this.errorResponse("pet name must be more than 2 characters");  
+    return this.successResponse;
+  }
+
+}
 
 Pet.init({
   id: {
@@ -16,18 +33,20 @@ Pet.init({
   },
   birthDate: {
     type: DataTypes.DATEONLY,
-    allowNull: false,
   },
-  customerID: {
-    type: DataTypes.INTEGER
+  customerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  photo: {
+    type: DataTypes.STRING,
+  },
+  idNumber: {
+    type: DataTypes.STRING,
   }
+}, {
+  sequelize,
+  modelName: 'Pet',
 })
 
-module.exports.validation = (pet, isNew) => {
-  if (!pet.customer_id && isNew) return validation.errorResponse("must be a customer_id field");  
-  if (!pet.name && isNew) return validation.errorResponse("must be a name field");  
-  if (pet.name.length <= 2) return validation.errorResponse("pet name must be more than 2 characters");
-  if (!pet.gender && isNew) return validation.errorResponse("must be a gender field");  
-
-  return validation.successResponse;
-}
+export default Pet;

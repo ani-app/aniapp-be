@@ -1,12 +1,12 @@
-var express = require('express');
-const { response } = require('../app');
-var router = express.Router();
-const service = require('../service/pets');
+import { Router } from 'express';
+import petService from '../service/pets';
+
+var router = Router();
 
 /* GET users listing. */
 router.get('/', async function(req, res) {
     try {
-        pets = await service.GetAllPets(req.query.limit, req.query.customer_id);
+        let pets = await petService.GetAllPets(req.query.limit, req.query.customer_id);
         res.status(200).json(pets);
     }catch (err) {
         res.status(400).json({'error' : err});
@@ -15,7 +15,7 @@ router.get('/', async function(req, res) {
 
 router.get('/:id', async function(req, res) {
     try {
-        pet = await service.GetPet(req.params.id);
+        let pet = await petService.GetPet(req.params.id);
         res.status(200).json(pet);
     }catch (err) {
         res.status(400).json({'error' : err});
@@ -24,7 +24,7 @@ router.get('/:id', async function(req, res) {
 
 router.post('/', async function(req, res){
     try {
-        let pet = await service.CreatePet(req.body);
+        let pet = await petService.CreatePet(req.body);
         res.status(201).json(pet);
     } catch(err) {
         res.status(400).json({error : err});
@@ -33,7 +33,7 @@ router.post('/', async function(req, res){
 
 router.delete('/:id', async function(req, res){
     try {
-        await service.DeletePet(req.params.id);
+        await petService.DeletePet(req.params.id);
         res.status(200).json({message : "pet deleted successfully."});
     }catch(err) {
         res.status(400).json({error: err});
@@ -43,11 +43,11 @@ router.delete('/:id', async function(req, res){
 router.put('/:id', async function(req, res){
     try {
         req.body.id = req.params.id
-        let pet = await service.UpdatePet(req.body);
+        let pet = await petService.UpdatePet(req.body);
         res.status(200).json(pet);
     } catch(err) {
         res.status(400).json({error: err});
     }
 });
 
-module.exports = router;
+export default router;

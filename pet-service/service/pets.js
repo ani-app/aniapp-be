@@ -1,48 +1,53 @@
-const repository = require('../repository/pets');
-const petModel = require('../models/pet');
+import petRepo from '../repository/pets';
+import Pet from '../models/pet';
 
-module.exports.GetAllPets = async (limit, customer_id) => {
-  if (limit > 20) {
-    limit = 20;
-  }
-  var pets;
-  if (customer_id != null) {
-    pets = await repository.GetCustomersPets(limit, customer_id);
-  }else {
-    pets = await repository.GetAllPets(limit);
-  }
-  return pets;
-};
+const service = {
+  GetAllPets : async (limit, customer_id) => {
+    if (limit > 20) {
+      limit = 20;
+    }
+    var pets;
+    if (customer_id != null) {
+      pets = await petRepo.GetCustomersPets(limit, customer_id);
+    }else {
+      pets = await petRepo.GetAllPets(limit);
+    }
+    return pets;
+  },
 
-module.exports.GetPet = async (id) => {
-  return await repository.GetPet(id);
-};
+  GetPet : async (id) => {
+    return await petRepo.GetPet(id);
+  },
 
-module.exports.CreatePet = async (pet) => {
-  let validate = petModel.validation(pet, true);
-  if (validate.error) {
-    throw validate.message;
-  }
-  return repository.CreatePet(pet);
-};
+  CreatePet: async (pet) => {
+    let validate = Pet.CreateValidation(pet);
+    if (validate.error) {
+      throw validate.message;
+    }
+    return petRepo.CreatePet(pet);
+  },
 
-module.exports.DeletePet = async (id) => {
-  return await repository.DeletePet(id);
-}
+  DeletePet : async (id) => {
+    return await petRepo.DeletePet(id);
+  },
 
-module.exports.UpdatePet = async (pet) => {
-  let validate = petModel.validation(pet, false);
-  if (validate.error) {
-    throw validate.message;
-  }
-
-  let currentPet = await repository.GetPet(pet.id);
-  if (pet.customer_id == undefined) pet.customer_id = currentPet.customer_id;
-  if (pet.name == undefined) pet.name = currentPet.name;
-  if (pet.birth_date == undefined) pet.birth_date = currentPet.birth_date;
-  if (pet.photo == undefined) pet.photo = currentPet.photo;
-  if (pet.colour_code == undefined) pet.colour_code = currentPet.colour_code;
-  if (pet.id_number == undefined) pet.id_number = currentPet.id_number;
+  UpdatePet : async (pet) => {
+    let validate = Pet.UpdateValidation(pet);
+    if (validate.error) {
+      throw validate.message;
+    }
   
-  return await repository.UpdatePet(pet);  
+    let currentPet = await petRepo.GetPet(pet.id);
+    if (pet.customerId == undefined) pet.customer_id = currentPet.customerId;
+    if (pet.name == undefined) pet.name = currentPet.name;
+    if (pet.birthDate == undefined) pet.birthDate = currentPet.birthDate;
+    if (pet.photo == undefined) pet.photo = currentPet.photo;
+    if (pet.colourCode == undefined) pet.colourCode = currentPet.colourCode;
+    if (pet.idNumber == undefined) pet.idNumber = currentPet.idNumber;
+    
+    return await petRepo.UpdatePet(pet);  
+  }
+  
 }
+
+export default service;

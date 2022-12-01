@@ -1,10 +1,19 @@
-module.exports.rowToDTO = (r) => {
-    return {
-        id : r.id,
-        name : r.name,
-        type : {
-          id : r.breed_type_id,
-          name : r.breed_type_name,
-        }
-      }
-};
+import sequelize from '../database/connection';
+import {DataTypes, Model} from 'sequelize';
+
+class Breed extends Model {}
+
+Breed.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+}, { sequelize,  modelName: 'Breed', freezeTableName: true});
+
+
+export default Breed;

@@ -1,17 +1,26 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var petRouter = require('./routes/pets');
-var breedRouter = require('./routes/breeds');
+import express from 'express';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import petRouter from './routes/pets.js';
+import breedRouter from './routes/breeds.js';
+import createDB from './database/create-db.js';
+import initDbData from './database/init-db.js';
 
-var app = express();
+async function getApp() {
+    var app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser())
+    await createDB();
+    await initDbData();
 
-app.use('/pets', petRouter);
-app.use('/breeds', breedRouter);
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cookieParser())
 
-module.exports = app;
+    app.use('/pets', petRouter);
+    app.use('/breeds', breedRouter);
+    console.log("deneme");
+    return app;
+
+}
+
+export default getApp;

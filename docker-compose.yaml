@@ -64,10 +64,10 @@ services:
 
   pet-db:
     image: postgres
-    container_name: postgres
+    container_name: pet-db
     restart: always
     ports:
-      - "5433:5433"
+      - "5432:5432"
     environment:
       <<: *common
     networks:
@@ -94,7 +94,7 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       <<: *common
     volumes:
@@ -102,19 +102,19 @@ services:
     networks:
       - aniapp
 
-  #pgadmin:
-  #  image: dpage/pgadmin4
-  #  container_name: pgadmin4
-  #  restart: always
-  #  ports:
-  #    - "5050:80"
-  #  environment:
-  #    PGADMIN_DEFAULT_EMAIL: tuncel.ahmet.berke@gmail.com
-  #    PGADMIN_DEFAULT_PASSWORD: admin
-  #  volumes:
-  #    - pgadmin-data:/var/lib/pgadmin
-  #  networks:
-  #    - aniapp
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: tuncel.ahmet.berke@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - aniapp
 
 volumes:
   pgadmin-data:
