@@ -20,11 +20,11 @@ const service = {
   },
 
   CreatePet: async (pet) => {
-    let validate = Pet.CreateValidation(pet);
+    /*let validate = Pet.CreateValidation(pet);
     if (validate.error) {
       throw validate.message;
-    }
-    return petRepo.CreatePet(pet);
+    }*/
+    return await petRepo.CreatePet(pet);
   },
 
   DeletePet : async (id) => {
@@ -32,12 +32,12 @@ const service = {
   },
 
   UpdatePet : async (pet) => {
-    let validate = Pet.UpdateValidation(pet);
+    /*let validate = Pet.UpdateValidation(pet);
     if (validate.error) {
       throw validate.message;
-    }
+    }*/
   
-    let currentPet = await petRepo.GetPet(pet.id);
+    let currentPet = await petRepo.GetPetWithoutInclude(pet.id);
     if (pet.customerId == undefined) pet.customer_id = currentPet.customerId;
     if (pet.name == undefined) pet.name = currentPet.name;
     if (pet.birthDate == undefined) pet.birthDate = currentPet.birthDate;

@@ -25,6 +25,10 @@ const repository = {
     }});
   },
 
+  GetPetWithoutInclude : async (id) => {
+    return await Pet.findByPk(id);
+  },
+
   CreatePet : async (pet) => {
     return await Pet.create(pet);
   },
@@ -34,12 +38,13 @@ const repository = {
   },
 
   UpdatePet : async (pet) => {
-    return await Pet.update(pet, {
+    let updatedPetRows = await Pet.update(pet, {
       where : {
         id: pet.id,
       },
       returning: true,
     });
+    return updatedPetRows[1][0];
   }
 }
 
