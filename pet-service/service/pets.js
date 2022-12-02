@@ -38,7 +38,7 @@ const service = {
     }*/
   
     let currentPet = await petRepo.GetPetWithoutInclude(pet.id);
-    if (pet.customerId == undefined) pet.customer_id = currentPet.customerId;
+    if (pet.customerId == undefined) pet.customerId = currentPet.customerId;
     if (pet.name == undefined) pet.name = currentPet.name;
     if (pet.birthDate == undefined) pet.birthDate = currentPet.birthDate;
     if (pet.photo == undefined) pet.photo = currentPet.photo;
