@@ -4,22 +4,7 @@ import {DataTypes, Model} from 'sequelize';
 import Validation from './validation';
 import ValidatableModel from './validation';
 
-class Pet extends Model {
-  /*
-  static CreateValidation(data) { 
-    if (!data.customerId) return this.errorResponse("must be a customer_id field");  
-    if (!data.name) return this.errorResponse("must be a name field");  
-    if (data.name.length <= 2) return this.errorResponse("pet name must be more than 2 characters");
-    if (!data.genderId) return this.errorResponse("must be a gender field");  
-    return this.successResponse;
-  }
-
-  static UpdateValidation(data) {
-    if (data.name.length <= 2) return this.errorResponse("pet name must be more than 2 characters");  
-    return this.successResponse;
-  }*/
-
-}
+class Pet extends Model {}
 
 Pet.init({
   id: {
