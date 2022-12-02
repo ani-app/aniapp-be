@@ -1,6 +1,6 @@
 function ErrorResponse(message, error) {
 
-    // console.log(JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error))));
+    console.log(JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error))));
     var errorRes = {message};
 
     switch (error.name) {

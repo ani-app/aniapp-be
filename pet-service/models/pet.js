@@ -1,8 +1,5 @@
 import sequelize from '../database/connection';
-import val from './validation';
 import {DataTypes, Model} from 'sequelize';
-import Validation from './validation';
-import ValidatableModel from './validation';
 
 class Pet extends Model {}
 
