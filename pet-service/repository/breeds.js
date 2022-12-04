@@ -1,15 +1,16 @@
 import { where } from 'sequelize';
 import Breed from '../models/breed';
+import BreedType from '../models/breedType';
 import Pet from '../models/pet';
 
 const repository = {
     GetAllBreeds : async () => {
-        return await Breed.findAll();
+        return await Breed.findAll({include : BreedType});
     },
 
     GetBreed : async (id) => {
         return await Breed.findByPk(id, {
-            include: Pet
+            include: [BreedType, Pet]
         })
     },
 
