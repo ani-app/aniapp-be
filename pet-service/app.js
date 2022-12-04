@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import petRouter from './routes/pets.js';
 import breedRouter from './routes/breeds.js';
+import breedTypeRouter from './routes/breedType.js';
 import createDB from './database/create-db.js';
 import initDbData from './database/init-db.js';
 
@@ -18,6 +19,7 @@ async function getApp() {
 
     app.use('/pets', petRouter);
     app.use('/breeds', breedRouter);
+    app.use('/breed-types', breedTypeRouter);
     console.log("deneme");
     return app;
 
