@@ -1,43 +1,42 @@
 import petRepo from '../repository/pets';
-import Pet from '../models/pet';
 
 const service = {
-  GetAllPets : async (limit, customer_id) => {
+  GetAll : async (limit, customer_id) => {
     if (limit > 20) {
       limit = 20;
     }
     var pets;
     if (customer_id != null) {
-      pets = await petRepo.GetCustomersPets(limit, customer_id);
+      pets = await petRepo.GetWithCustomer(limit, customer_id);
     }else {
-      pets = await petRepo.GetAllPets(limit);
+      pets = await petRepo.GetAll(limit);
     }
     return pets;
   },
 
-  GetPet : async (id) => {
-    return await petRepo.GetPet(id);
+  Get : async (id) => {
+    return await petRepo.Get(id);
   },
 
-  CreatePet: async (pet) => {
+  Create: async (pet) => {
     /*let validate = Pet.CreateValidation(pet);
     if (validate.error) {
       throw validate.message;
     }*/
-    return await petRepo.CreatePet(pet);
+    return await petRepo.Create(pet);
   },
 
-  DeletePet : async (id) => {
-    return await petRepo.DeletePet(id);
+  Delete : async (id) => {
+    return await petRepo.Delete(id);
   },
 
-  UpdatePet : async (pet) => {
+  Update : async (pet) => {
     /*let validate = Pet.UpdateValidation(pet);
     if (validate.error) {
       throw validate.message;
     }*/
   
-    let currentPet = await petRepo.GetPetWithoutInclude(pet.id);
+    let currentPet = await petRepo.GetWithoutInclude(pet.id);
     if (pet.customerId == undefined) pet.customerId = currentPet.customerId;
     if (pet.name == undefined) pet.name = currentPet.name;
     if (pet.birthDate == undefined) pet.birthDate = currentPet.birthDate;
@@ -45,7 +44,7 @@ const service = {
     if (pet.colourCode == undefined) pet.colourCode = currentPet.colourCode;
     if (pet.idNumber == undefined) pet.idNumber = currentPet.idNumber;
     
-    return await petRepo.UpdatePet(pet);  
+    return await petRepo.Update(pet);  
   }
   
 }

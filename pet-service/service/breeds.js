@@ -1,28 +1,28 @@
 import breedRepo from '../repository/breeds';
 
 const service = {
-    GetAllBreeds : async () => {
-        return await breedRepo.GetAllBreeds();
+    GetAll : async () => {
+        return await breedRepo.GetAll();
     },
 
-    GetBreed : async (id) => {
-        return await breedRepo.GetBreed(id);
+    Get : async (id) => {
+        return await breedRepo.Get(id);
     },
 
-    CreateBreed : async (breed) => {
-        return await breedRepo.CreateBreed(breed);
+    Create : async (breed) => {
+        return await breedRepo.Create(breed);
     },
 
-    DeleteBreed : async (id) => {
-        return await breedRepo.DeleteBreed(id);
+    Delete : async (id) => {
+        return await breedRepo.Delete(id);
     },
 
-    UpdateBreed : async (breed) => {
-        let currentBreed = await breedRepo.GetBreedWithoutInclude(pet.id);
+    Update : async (breed) => {
+        let currentBreed = await breedRepo.GetWithoutInclude(pet.id);
         if (breed.name == undefined) breed.name = currentBreed.name;
         if (breed.breedTypeId == undefined) breed.breedTypeId = currentBreed.breedTypeId;
     
-        return await breedRepo.UpdateBreed(breed);  
+        return await breedRepo.Update(breed);  
     }
 
 }

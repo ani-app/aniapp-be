@@ -4,40 +4,40 @@ import Pet from '../models/pet';
 
 const repository = {
   
-  GetAllPets : async (limit) => {
+  GetAll : async (limit) => {
     return await Pet.findAll({limit, include: {
       model : Breed,
       include : BreedType
     }});;
   },
 
-  GetCustomersPets : async (limit, customerId) => {
+  GetWithCustomer : async (limit, customerId) => {
     return await Pet.findAll({where: {customerId}, limit, include: {
       model : Breed,
       include : BreedType
     }});
   },
 
-  GetPet : async (id) => {
+  Get : async (id) => {
     return await Pet.findByPk(id, {include: {
       model : Breed,
       include : BreedType
     }});
   },
 
-  GetPetWithoutInclude : async (id) => {
+  GetWithoutInclude : async (id) => {
     return await Pet.findByPk(id);
   },
 
-  CreatePet : async (pet) => {
+  Create : async (pet) => {
     return await Pet.create(pet);
   },
 
-  DeletePet : async (petId) => {
+  Delete : async (petId) => {
     return await Pet.destroy({where: {id: petId}});
   },
 
-  UpdatePet : async (pet) => {
+  Update : async (pet) => {
     let updatedPetRows = await Pet.update(pet, {
       where : {
         id: pet.id,

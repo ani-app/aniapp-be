@@ -3,29 +3,29 @@ import BreedType from '../models/breedType';
 import Breed from '../models/breed';
 
 const repository = {
-    GetAllBreeds : async () => {
+    GetAll : async () => {
         return await BreedType.findAll();
     },
 
-    GetBreed : async (id) => {
+    Get : async (id) => {
         return await BreedType.findByPk(id, {
             include: Breed
         })
     },
 
-    GetBreedWithoutInclude : async (id) => {
+    GetWithoutInclude : async (id) => {
         return await BreedType.findByPk(id);
     },
 
-    CreateBreed : async (breedType) => {
+    Create : async (breedType) => {
         return await BreedType.create(breedType);
     },
 
-    DeleteBreed : async (id) => {
+    Delete : async (id) => {
         return await BreedType.destroy({where : {id: id}});
     },
 
-    UpdateBreed : async (breedType) => {
+    Update : async (breedType) => {
         let updatedBreedRows = await Breed.update(breedType, {
             where : {
                 id: breedType.id
