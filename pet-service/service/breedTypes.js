@@ -17,12 +17,17 @@ const service = {
         return await breedTypeRepo.Delete(id);
     },
 
-    Update : async (breed) => {
-        let currentBreed = await breedTypeRepo.GetWithoutInclude(pet.id);
-        if (breed.name == undefined) breed.name = currentBreed.name;
-        if (breed.breedTypeId == undefined) breed.breedTypeId = currentBreed.breedTypeId;
+    Update : async (breedType) => {
+        
+        if (breedType.name == undefined) {
+            let currentbreedType = await breedTypeRepo.GetWithoutInclude(breed.id);
+            if (currentbreedType != breedType.name) {
+                return await breedTypeRepo.Update(breedType);
+            }
+        }
+        
+        throw new Error('nothing changed on breed type');
     
-        return await breedTypeRepo.Update(breed);  
     }
 
 }
