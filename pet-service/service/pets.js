@@ -7,7 +7,6 @@ const service = {
     if (limit > 20) {
       limit = 20;
     }
-
     var pets = await petRepo.GetAll(limit, filters);
     return pets;
   },

@@ -10,8 +10,9 @@ router.get('/', async function(req, res) {
     try {
         let filters = {
             customerId : req.query.customerId,
-            gender : req.query.gender,
-            colour :  req.query.colour
+            genderId : req.query.genderId,
+            colourId :  req.query.colourId,
+            breedId : req.query.breedId
         } 
         let pets = await petService.GetAll(req.query.limit, filters);
         res.status(200).json(SuccessResponse('pets successfully fetched', pets));

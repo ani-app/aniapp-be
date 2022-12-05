@@ -1,30 +1,34 @@
 import Breed from '../models/breed';
 import BreedType from '../models/breedType';
+import Colour from '../models/colour';
+import Gender from '../models/gender';
 import Pet from '../models/pet';
 
 const repository = {
   
   GetAll : async (limit, filters) => {
     let whereCondition = {}
-    if (filters.gender !== null && filters.gender !== undefined) whereCondition.genderId = filters.gender.id;
-    if (filters.colour !== null && filters.colour !== undefined) whereCondition.colourId = filters.colour.id;
+    if (filters.genderId !== null && filters.genderId !== undefined) whereCondition.genderId = filters.genderId;
+    if (filters.colourId !== null && filters.colourId !== undefined) whereCondition.colourId = filters.colourId;
     if (filters.customerId !== null && filters.customerId !== undefined) whereCondition.customerId = filters.customerId;
-    console.log(filters);
+    if (filters.breedId !== null && filters.breedId !== undefined) whereCondition.breedId = filters.breedId;
+    console.log(whereCondition);
     return await Pet.findAll({
       limit, 
-      include: {
-        model : Breed,
-        include : BreedType,
-      },
+      include: [
+        {
+          model : Breed,
+          include : BreedType,
+        },
+        {
+          model: Colour
+        },
+        {
+          model: Gender
+        }
+      ],
       where : whereCondition
     });;
-  },
-
-  GetWithCustomer : async (limit, customerId) => {
-    return await Pet.findAll({where: {customerId}, limit, include: {
-      model : Breed,
-      include : BreedType
-    }});
   },
 
   Get : async (id) => {
