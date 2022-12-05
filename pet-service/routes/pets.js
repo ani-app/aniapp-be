@@ -8,7 +8,12 @@ var router = Router();
 /* GET users listing. */
 router.get('/', async function(req, res) {
     try {
-        let pets = await petService.GetAll(req.query.limit, req.query.customer_id);
+        let filters = {
+            customerId : req.query.customerId,
+            gender : req.query.gender,
+            colour :  req.query.colour
+        } 
+        let pets = await petService.GetAll(req.query.limit, filters);
         res.status(200).json(SuccessResponse('pets successfully fetched', pets));
     }catch (err) {
         res.status(400).json(ErrorResponse('pets fetch failed', err));

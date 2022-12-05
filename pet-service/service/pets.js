@@ -1,16 +1,14 @@
 import petRepo from '../repository/pets';
+import genderRepo from '../repository/genders';
+import colourRepo from '../repository/colours';
 
 const service = {
-  GetAll : async (limit, customer_id) => {
+  GetAll : async (limit, filters) => {
     if (limit > 20) {
       limit = 20;
     }
-    var pets;
-    if (customer_id != null) {
-      pets = await petRepo.GetWithCustomer(limit, customer_id);
-    }else {
-      pets = await petRepo.GetAll(limit);
-    }
+
+    var pets = await petRepo.GetAll(limit, filters);
     return pets;
   },
 

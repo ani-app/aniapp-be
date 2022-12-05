@@ -12,6 +12,14 @@ const repository = {
         })
     },
 
+    GetByName : async (name) => {
+        return await Gender.findOne({
+            where : {
+                name
+            }
+        })
+    },
+
     GetWithoutInclude : async (id) => {
         return await Gender.findByPk(id);
     },

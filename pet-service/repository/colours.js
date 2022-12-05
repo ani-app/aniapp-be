@@ -11,6 +11,14 @@ const repository = {
         })
     },
 
+    GetByName : async (name) => {
+        return await Colour.findOne({
+            where : {
+                name
+            }
+        })
+    },
+
     GetWithoutInclude : async (id) => {
         return await Colour.findByPk(id);
     },

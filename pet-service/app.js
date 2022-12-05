@@ -24,7 +24,6 @@ async function getApp() {
     app.use('/breed-types', breedTypeRouter);
     app.use('/colours', colourRouter);
     app.use('/genders', genderRouter);
-    console.log("deneme");
     return app;
 
 }

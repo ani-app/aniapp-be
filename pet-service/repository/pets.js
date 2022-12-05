@@ -4,11 +4,20 @@ import Pet from '../models/pet';
 
 const repository = {
   
-  GetAll : async (limit) => {
-    return await Pet.findAll({limit, include: {
-      model : Breed,
-      include : BreedType
-    }});;
+  GetAll : async (limit, filters) => {
+    let whereCondition = {}
+    if (filters.gender !== null && filters.gender !== undefined) whereCondition.genderId = filters.gender.id;
+    if (filters.colour !== null && filters.colour !== undefined) whereCondition.colourId = filters.colour.id;
+    if (filters.customerId !== null && filters.customerId !== undefined) whereCondition.customerId = filters.customerId;
+    console.log(filters);
+    return await Pet.findAll({
+      limit, 
+      include: {
+        model : Breed,
+        include : BreedType,
+      },
+      where : whereCondition
+    });;
   },
 
   GetWithCustomer : async (limit, customerId) => {
