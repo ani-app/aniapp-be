@@ -5,6 +5,7 @@ import petRouter from './routes/pets.js';
 import breedRouter from './routes/breeds.js';
 import breedTypeRouter from './routes/breedType.js';
 import colourRouter from './routes/colours.js';
+import genderRouter from './routes/genders.js';
 import createDB from './database/create-db.js';
 import initDbData from './database/init-db.js';
 
@@ -22,6 +23,7 @@ async function getApp() {
     app.use('/breeds', breedRouter);
     app.use('/breed-types', breedTypeRouter);
     app.use('/colours', colourRouter);
+    app.use('/genders', genderRouter);
     console.log("deneme");
     return app;
 
