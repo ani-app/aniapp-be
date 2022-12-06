@@ -16,6 +16,4 @@ RUN npm install -g nodemon
 COPY ./src /
 COPY ./package.json /
 COPY ./package-lock.json /
-RUN ls
-RUN echo "hello world"
-CMD ["nodemon", "--trace-warnings", "--experimental-specifier-resolution=node", "bin/www.js"]
+CMD ["nodemon", "--trace-warnings", "--experimental-specifier-resolution=node", "server.js"]
