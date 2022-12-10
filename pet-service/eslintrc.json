@@ -1,0 +1,23 @@
+{
+    "extends": [
+      "eslint:recommended",
+      "google"
+    ],
+    "env": {
+      "node": true,
+      "es2017": true,
+      "jest": true,
+      "jest/globals": true
+    },
+    "parser": "@babel/eslint-parser",
+    "plugins": ["jest"],
+    "rules": {
+      "require-jsdoc": 0,
+      "new-cap": ["error", { "capIsNewExceptions": ["Router"] }],
+      "jest/no-disabled-tests": "warn",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "jest/prefer-to-have-length": "warn",
+      "jest/valid-expect": "error"
+    }
+  }
