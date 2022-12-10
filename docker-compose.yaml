@@ -55,16 +55,23 @@ services:
     command: npm run start:dev
     ports:
       - "3002:3002"
-    environment:
-      <<: *common
-      PORT: 3002
-      NODE_ENV: development
-      DEBUG: nodejs-docker-express:*
+    env_file:
+      - 'pet.env'
     networks:
       - aniapp
     depends_on:
-      - postgres
+      - pet-db
 
+  pet-db:
+    image: postgres
+    container_name: pet-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      <<: *common
+    networks:
+      - aniapp
   veterinary-service:
     container_name: veterinary-service
     build:
@@ -87,7 +94,7 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5433:5432"
     environment:
       <<: *common
     volumes:

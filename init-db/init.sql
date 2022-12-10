@@ -169,7 +169,7 @@ CREATE TABLE IF NOT EXISTS Pets (
     customer_id int NOT NULL,
     id int NOT NULL DEFAULT nextval('pets_id_seq'),
     name varchar(50),
-    created_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     birth_date TIMESTAMP,
     breed_id int,
     photo varchar(50),

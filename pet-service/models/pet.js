@@ -1,21 +1,44 @@
-module.exports.rowToDTO = (r) => {
-    return {
-        id : r.id,
-        customer : r.customer_id,
-        name : r.name,
-        created_at : r.created_at,
-        birth_date : r.birth_date,
-        photo : r.photo,
-        colour_code : r.colour_code,
-        id_number : r.id_number,
-        gender : r.gender,
-        breed : {
-          id : r.breed_id,
-          name : r.breed_name,
-          type : {
-            id : r.breed_type_id,
-            name : r.breed_type_name
-          }
-        }
+import sequelize from '../database/connection';
+import {DataTypes, Model} from 'sequelize';
+
+class Pet extends Model {}
+
+Pet.init({
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate : {
+      notEmpty: {
+        args: true,
+        msg: "Pet name required"
+      },
+      min: {
+        args: [2],
+        msg: "Minimum 2 characters required in last name"
       }
-};
+    }
+  },
+  birthDate: {
+    type: DataTypes.DATEONLY,
+  },
+  customerId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  photo: {
+    type: DataTypes.STRING,
+  },
+  idNumber: {
+    type: DataTypes.STRING,
+  }
+}, {
+  sequelize,
+  modelName: 'Pet',
+})
+
+export default Pet;
