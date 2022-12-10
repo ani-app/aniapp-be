@@ -13,5 +13,7 @@ FROM base as dev
 ENV NODE_ENV=development
 RUN npm install
 RUN npm install -g nodemon
-COPY . /
-CMD ["nodemon", "--experimental-specifier-resolution=node", "bin/www.js"]
+COPY ./src /
+COPY ./package.json /
+COPY ./package-lock.json /
+CMD ["nodemon", "--trace-warnings", "--experimental-specifier-resolution=node", "server.js"]
