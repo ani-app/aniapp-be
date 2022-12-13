@@ -4,6 +4,8 @@ x-common-variables:
   &common
   HELLOWORLD_SERVICE_PORT: "3001"
   HELLOWORLD_SERVICE_ADDR: "helloworld"
+  PET_SERVICE_PORT: "3002"
+  PET_SERVICE_ADDR: "pet-service"
   POSTGRES_DB: aniapp
   POSTGRES_USER: user
   POSTGRES_PASSWORD: admin
