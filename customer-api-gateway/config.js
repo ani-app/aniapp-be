@@ -2,6 +2,10 @@ const config = {
     helloWorldService : {
         addr : process.env.HELLOWORLD_SERVICE_ADDR,
         port : process.env.HELLOWORLD_SERVICE_PORT
+    },
+    petService: {
+        addr : process.env.PET_SERVICE_ADDR,
+        port: process.env.PET_SERVICE_PORT
     }
 }
 
