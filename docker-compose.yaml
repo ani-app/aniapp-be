@@ -40,10 +40,21 @@ services:
     command: npm run start:dev
     ports:
       - "3001:3001"
-    environment:
-      - PORT=3001
-      - NODE_ENV=development
-      - DEBUG=nodejs-docker-express:*
+    env_file:
+      - 'customer.env'
+    networks:
+      - aniapp
+    depends_on:
+      - customer-db
+
+  customer-db:
+    image: postgres
+    container_name: customer-db
+    restart: always
+    ports:
+      - "5435:5435"
+    env_file:
+      - 'pet.env'
     networks:
       - aniapp
 
@@ -70,8 +81,8 @@ services:
     restart: always
     ports:
       - "5432:5432"
-    environment:
-      <<: *common
+    env_file:
+      - 'pet.env'
     networks:
       - aniapp
   veterinary-service:
@@ -88,19 +99,6 @@ services:
       - PORT=3003
       - NODE_ENV=development
       - DEBUG=nodejs-docker-express:*
-    networks:
-      - aniapp
-
-  postgres:
-    image: postgres
-    container_name: postgres
-    restart: always
-    ports:
-      - "5433:5432"
-    environment:
-      <<: *common
-    volumes:
-      - ./init-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - aniapp
 
