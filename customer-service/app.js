@@ -1,16 +1,20 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+import express from "express"
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import createDB from "./database/create-db";
+import initDB from "./database/init-db";
 
-var customers = require('./routes/customer');
+async function getApp() {
+    var app = express();
+    await createDB();
+    await initDB();
+    
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cookieParser());
 
-var app = express();
+    return app;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser())
+}
 
-app.use('/customers', customers);
-
-module.exports = app;
+export default getApp;

@@ -1,6 +1,5 @@
 import sequelize from "./connection";
-import createModelsAndRelations from "../models/relations";
-import { DataTypes } from "sequelize";
+import createModelsAndRelations from "../models/associations";
 
 export default async function createDB() {
     try {
