@@ -54,7 +54,7 @@ services:
     ports:
       - "5435:5435"
     env_file:
-      - 'pet.env'
+      - 'customer.env'
     networks:
       - aniapp
 
