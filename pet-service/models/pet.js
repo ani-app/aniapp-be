@@ -11,24 +11,14 @@ Pet.init({
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate : {
-      notEmpty: {
-        args: true,
-        msg: "Pet name required"
-      },
-      min: {
-        args: [2],
-        msg: "Minimum 2 characters required in last name"
-      }
-    }
+    allowNull: false
   },
   birthDate: {
     type: DataTypes.DATEONLY,
   },
   customerId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false  
   },
   photo: {
     type: DataTypes.STRING,

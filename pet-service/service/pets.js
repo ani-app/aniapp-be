@@ -1,4 +1,5 @@
 import petRepo from '../repository/pets';
+import {CreateValidate, UpdateValidate} from '../validation/pet';
 import genderRepo from '../repository/genders';
 import colourRepo from '../repository/colours';
 
@@ -20,6 +21,7 @@ const service = {
     if (validate.error) {
       throw validate.message;
     }*/
+    CreateValidate(pet);
     return await petRepo.Create(pet);
   },
 
@@ -32,9 +34,13 @@ const service = {
     if (validate.error) {
       throw validate.message;
     }*/
-  
+    
+    UpdateValidate(pet);
     let currentPet = await petRepo.GetWithoutInclude(pet.id);
-    if (pet.customerId == undefined) pet.customerId = currentPet.customerId;
+
+    // The customer of the pet cannot change
+    pet.customerId = currentPet.customerId;
+
     if (pet.name == undefined) pet.name = currentPet.name;
     if (pet.birthDate == undefined) pet.birthDate = currentPet.birthDate;
     if (pet.photo == undefined) pet.photo = currentPet.photo;
