@@ -1,4 +1,5 @@
 import coloursRepo from '../repository/colours';
+import { CreateValidate, UpdateValidate } from '../validation/colour';
 
 const service = {
     GetAll : async () => {
@@ -10,6 +11,7 @@ const service = {
     },
 
     Create : async (colour) => {
+        CreateValidate(colour);
         return await coloursRepo.Create(colour);
     },
 
@@ -18,6 +20,7 @@ const service = {
     },
 
     Update : async (colour) => {
+        UpdateValidate(colour);
         let coloursRepo = await coloursRepo.GetWithoutInclude(colour.id);
         if (colour.name == undefined) colour.name = colour.name;
         if (colour.code == undefined) colour.code = colour.code;

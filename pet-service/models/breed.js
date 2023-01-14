@@ -11,13 +11,7 @@ Breed.init({
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate : {
-      notEmpty : {
-        args : true,
-        msg : 'Breed name required'
-      }
-    }
+    allowNull: false
   },
 }, { sequelize,  modelName: 'Breed', freezeTableName: true});
 

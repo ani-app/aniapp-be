@@ -13,6 +13,11 @@ function ErrorResponse(message, error) {
                 errorRes.error.message += err.message + ', ';
             });
             break;
+        case 'ValidationError':
+            errorRes.error = {
+                name : error.name,
+                message : error.message
+            }
     }
 
     return errorRes;

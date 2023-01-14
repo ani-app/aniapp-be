@@ -1,4 +1,5 @@
 import gendersRepo from '../repository/genders';
+import { CreateValidate, UpdateValidate } from '../validation/gender';
 
 const service = {
     GetAll : async () => {
@@ -10,6 +11,7 @@ const service = {
     },
 
     Create : async (gender) => {
+        CreateValidate(gender);
         return await gendersRepo.Create(gender);
     },
 
@@ -18,6 +20,7 @@ const service = {
     },
 
     Update : async (gender) => {
+        UpdateValidate(gender);
         let currentGender = await gendersRepo.GetWithoutInclude(colour.id);
         if (gender.name == undefined) gender.name = currentGender.name;
         return await gendersRepo.Update(colour);  

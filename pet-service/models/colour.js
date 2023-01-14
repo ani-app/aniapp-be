@@ -15,11 +15,7 @@ Colour.init({
     },
     code: {
         type: DataTypes.STRING,
-        allowNull: false,
-        len : {
-            args : [6,6],
-            msg : 'pets colour code must be 6 length'
-        }
+        allowNull: false
     }
 }, {sequelize, modelName:'Colour'});
 

@@ -1,4 +1,5 @@
 import breedTypeRepo from '../repository/breedTypes';
+import { CreateValidate, UpdateValidate } from '../validation/breedType';
 
 const service = {
     GetAll : async () => {
@@ -9,8 +10,9 @@ const service = {
         return await breedTypeRepo.Get(id);
     },
 
-    Create : async (breed) => {
-        return await breedTypeRepo.Create(breed);
+    Create : async (breedType) => {
+        CreateValidate(breedType);
+        return await breedTypeRepo.Create(breedType);
     },
 
     Delete : async (id) => {
@@ -18,9 +20,9 @@ const service = {
     },
 
     Update : async (breedType) => {
-        
+        UpdateValidate(breedType);
         if (breedType.name == undefined) {
-            let currentbreedType = await breedTypeRepo.GetWithoutInclude(breed.id);
+            let currentbreedType = await breedTypeRepo.GetWithoutInclude(breedType.id);
             if (currentbreedType != breedType.name) {
                 return await breedTypeRepo.Update(breedType);
             }
